@@ -20,4 +20,11 @@
 3. Before running the code, ensure that the whole file path referenced. The excel file must be in the same folder as the Linear Regression Model.
 
 For Example:
+
 df = pd.read_excel("C:\\FinalProjAlg\\PulseBat Dataset.xlsx")
+
+4. User is prompted with 'Enter SOH threshold value:', enter a threshold between 0-1.
+
+For example:
+
+Enter SOH threshold value: 0.7
