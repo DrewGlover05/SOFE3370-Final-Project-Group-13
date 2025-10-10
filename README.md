@@ -18,5 +18,4 @@ pip install openpyxl
 3. Before running the code, ensure that the whole file path referenced. The excel file must be in the same folder as the Linear Regression Model.
 
 For Example:
-# The Excel file needs to be in the same folder as this script
 df = pd.read_excel("C:\\FinalProjAlg\\PulseBat Dataset.xlsx")
