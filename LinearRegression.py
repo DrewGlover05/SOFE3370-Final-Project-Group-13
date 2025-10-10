@@ -62,4 +62,13 @@ unhealthy_count = df[df['Battery_Status'] == "The battery has a problem"].shape[
 
 # Print the total number of batteries above and below the threshold
 print("\nNumber of healthy batteries:", healthy_count)
+
 print("Number of unhealthy batteries:", unhealthy_count)
+
+# Create a scatter plot that compares the predicted SOH to actual SOH
+plt.figure(figsize=(7, 5))
+plt.scatter(y_test, y_pred, alpha = 0.7)
+plt.xlabel("Actual SOH")
+plt.ylabel("Predicted SOH")
+plt.title("Linear Regression of Battery Pack SOH Prediction")
+plt.show()
