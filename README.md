@@ -2,7 +2,7 @@
 **Group 12**
 + Drew Glover - 100914229
 + Reid Hillis - 100915844
-+ Jayden Mallari - 
++ Jayden Mallari - 100927961
 + Aaraan Mahmood - 
 + Jeffrey Atunure - 
 
@@ -15,4 +15,8 @@ pip install numpy pandas scikit-learn matplotlib
 
 pip install openpyxl
 
-3. 
+3. Before running the code, ensure that the whole file path referenced. The excel file must be in the same folder as the Linear Regression Model.
+
+For Example:
+# The Excel file needs to be in the same folder as this script
+df = pd.read_excel("C:\\FinalProjAlg\\PulseBat Dataset.xlsx")
