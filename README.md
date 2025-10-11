@@ -1,5 +1,5 @@
 # SOFE3370-Final-Project-Group-13
-**Group 12**
+**Group 13**
 + Drew Glover - 100914229
 + Reid Hillis - 100915844
 + Jayden Mallari - 100927961
