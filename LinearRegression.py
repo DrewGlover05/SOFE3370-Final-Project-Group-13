@@ -12,7 +12,7 @@ from sklearn.metrics import r2_score, mean_squared_error, mean_absolute_error
 # Load dataset into a pandas DataFrame
 df = pd.read_excel("Final Project\\PulseBat Dataset.xlsx")
 
-# Convert DataFrame to a list of lists for pure Python sorting
+# Convert DataFrame to a list of lists for Python sorting
 data_list = df.values.tolist()
 
 # Sort the data by SON using merge sort
@@ -101,4 +101,5 @@ plt.xlabel("Actual SOH")
 plt.ylabel("Predicted SOH")
 plt.title("Linear Regression of Battery Pack SOH Prediction")
 plt.show()
+
 
