@@ -1,5 +1,5 @@
-# SOFE 3370 Final Project
-# Battery Pack SOH Prediction using Linear Regression
+# SOFE 3370 Final Project - Group 13
+# Battery Pack SOH Prediction Using Linear Regression
 # October 12th 2025
 
 # Import all of the libraries you need to run the program
@@ -42,24 +42,23 @@ def merge(left, right):
     result.extend(right[j:])
     return result
 
-print("Sorting completed.\n")
 
 # Sort the data by SOH
 sorted_data = merge_sort(data_list)
+print("Sorting completed.\n")
 
 # Convert back to a DataFrame
 columns = df.columns.tolist()
-df_sorted = pd.DataFrame(sorted_data, columns=columns)
+df_sorted = pd.DataFrame(sorted_data, columns = columns)
 
 # Select which columns will be used as inputs (U1-21)
 # The target value we are trying to predict is the battery pack's SOH
-X = df_sorted[['U1','U2','U3','U4','U5','U6','U7','U8','U9','U10',
-               'U11','U12','U13','U14','U15','U16','U17','U18','U19','U20','U21']]
+X = df_sorted[['U1','U2','U3','U4','U5','U6','U7','U8','U9','U10', 'U11','U12','U13','U14','U15','U16','U17','U18','U19','U20','U21']]
 y = df_sorted['SOH']
 
 # Use train_test_split to split data into 80% training and 20% testing
 # random_state=1 uses the same training and testing pattern so the results are consistent
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=1, shuffle=True)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.2, random_state = 1)
 
 # Create an instance of the Linear Regression Model
 model = LinearRegression()
@@ -101,11 +100,9 @@ print("\nNumber of healthy batteries:", healthy_count)
 print("Number of unhealthy batteries:", unhealthy_count)
 
 # Create a scatter plot that compares the predicted SOH to actual SOH
-plt.figure(figsize=(7,5))
-plt.scatter(y_test, y_pred, alpha=0.7)
+plt.figure(figsize = (7,5))
+plt.scatter(y_test, y_pred, alpha = 0.7)
 plt.xlabel("Actual SOH")
 plt.ylabel("Predicted SOH")
 plt.title("Linear Regression of Battery Pack SOH Prediction")
 plt.show()
-
-
