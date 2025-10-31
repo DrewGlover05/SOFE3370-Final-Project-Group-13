@@ -27,3 +27,13 @@
 &emsp;&emsp;For example:
 
 &emsp;&emsp;Enter SOH threshold value: 0.7
+
+5. In the terminal, type:
+
+&emsp;&esmp;streamlit run app.py
+
+Some caveats to worry about:
+
+Battery Prediction Tab - Only accepts .xlsx file format
+Gemini API Chatbot - 
+Manually entering values in the battery prediction tab - Only between 0.0 - 4.1 (inclusive)
