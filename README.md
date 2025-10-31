@@ -30,7 +30,7 @@
 
 5. In the terminal, type:
 
-&emsp;&esmp;streamlit run app.py
+&emsp;&emsp;streamlit run app.py
 
 Some caveats to worry about:
 
