@@ -35,5 +35,7 @@
 Some caveats to worry about:
 
 Battery Prediction Tab - Only accepts .xlsx file format
+
 Gemini API Chatbot - 
+
 Manually entering values in the battery prediction tab - Only between 0.0 - 4.1 (inclusive)
