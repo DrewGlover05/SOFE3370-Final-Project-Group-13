@@ -40,5 +40,5 @@ Gemini API Chatbot -
 
 Manually entering values in the battery prediction tab - Only between 0.0 - 4.1 (inclusive)
 
-https://chatgpt.com/share/69054abc-c7f8-8000-92fd-b9638e45e374
+Developer's note *Important*: If you make any changes, you need to save and rerun the program from the terminal. Don't press the rerun button on the chatbot, the changes won't be applied.
 
