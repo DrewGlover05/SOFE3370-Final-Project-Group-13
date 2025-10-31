@@ -83,28 +83,20 @@ with tab1:
 
     cell_data = None
 
-    if uploaded_file:
-        df = pd.read_excel(uploaded_file)
+if uploaded_file:
+    df = pd.read_excel(uploaded_file)
 
-        expected_cols = [f"U{i}" for i in range(1, 22)] + ["SOH"]
+    expected_cols = [f"U{i}" for i in range(1,22)]
 
-        # ✅ Check if the required columns exist
-        if all(col in df.columns for col in expected_cols):
-            # ✅ Read only U1–U21 and SOH
-            filtered_df = df[expected_cols]
+    if all(col in df.columns for col in expected_cols):
+        filtered_df = df[expected_cols].apply(pd.to_numeric, errors="coerce")
 
-            # ✅ Convert everything to numeric (fixes strings)
-            filtered_df = filtered_df.apply(pd.to_numeric, errors="coerce")
+        st.success("✅ Data loaded successfully.")
+        st.write(filtered_df)
 
-            st.success("✅ Data loaded successfully.")
-            st.write(filtered_df)
-        elif manual_input:
-            st.write("Enter the 21 SOH values below:")
-            cell_data = [st.number_input(f"U{i+1}", min_value=0.0, max_value=4.1, step=0.01) for i in range(21)]
-        else:
-            st.error("❌ File must contain columns U1–U21 and SOH.")
+        # ✅ Extract 1st row as model input
+        cell_data = filtered_df.iloc[0].values.tolist()
 
-    if cell_data:
         if st.button("🔮 Predict SOH"):
             soh_pred, status = predict_battery_soh(cell_data)
             st.session_state.soh_info = {"soh": soh_pred, "status": status}
@@ -116,6 +108,7 @@ with tab1:
                 st.error("⚠️ The battery has a PROBLEM.")
 
             plot_soh_gauge(soh_pred)
+
 
 # -----------------------------
 # TAB 2 — Gemini Chatbot
