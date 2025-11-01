@@ -11,16 +11,22 @@
 1. Open the file in a Python IDE
 2. Enter these 2 lines separately in the terminal to install the required libraries:
 
-&emsp;&emsp;pip install numpy pandas scikit-learn matplotlib
+```
+pip install numpy pandas scikit-learn matplotlib
+```
 
-&emsp;&emsp;pip install openpyxl
+```
+pip install openpyxl
+```
 
 
 3. Before running the code, ensure that the whole file path referenced. The excel file must be in the same folder as the Linear Regression Model.
 
 &emsp;&emsp;For Example:
 
-&emsp;&emsp;df = pd.read_excel("C:\\FinalProjAlg\\PulseBat Dataset.xlsx")
+```
+df = pd.read_excel("C:\\FinalProjAlg\\PulseBat Dataset.xlsx")
+```
 
 4. Run the code, and the user is prompted with 'Enter SOH threshold value:', enter a threshold between 0-1.
 
