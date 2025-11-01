@@ -28,6 +28,9 @@
 
 &emsp;&emsp;Enter SOH threshold value: 0.7
 
+
+Running The Chatbot:
+
 5. In the terminal, type:
 
 &emsp;&emsp;streamlit run app.py
