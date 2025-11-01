@@ -33,7 +33,13 @@ Running The Chatbot:
 
 5. In the terminal, type:
 
+&emsp;&emsp;pip install io os google.generativeai sklearn.metrics streamlit
+
 &emsp;&emsp;streamlit run app.py
+
+
+
+
 
 Some caveats to worry about:
 
