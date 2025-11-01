@@ -33,9 +33,9 @@ Running The Chatbot:
 
 5. In the terminal, type:
 
-``pip install io os google.generativeai sklearn.metrics streamlit``
+```pip install io os google.generativeai sklearn.metrics streamlit```
 
-``streamlit run app.py``
+```streamlit run app.py```
 
 
 
