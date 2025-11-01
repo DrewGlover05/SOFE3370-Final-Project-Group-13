@@ -37,7 +37,7 @@ Running The Chatbot:
 
 Some caveats to worry about:
 
-Battery Prediction Tab - Only accepts .xlsx file format
+Battery Prediction Tab upload - Only accepts .xlsx file format
 
 Gemini API Chatbot - 
 
