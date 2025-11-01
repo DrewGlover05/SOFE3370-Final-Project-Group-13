@@ -1,7 +1,3 @@
-# SOFE 3370 Final Project - Group 13
-# Battery Pack SOH Prediction Using Linear Regression
-# October 12th 2025
-
 # Import all of the libraries you need to run the program
 import pandas as pd # Used to handle and analyze the data
 import numpy as np # Used for mathematical operations
@@ -9,6 +5,7 @@ import matplotlib.pyplot as plt # Used for plotting the graph
 from sklearn.linear_model import LinearRegression # Linear regression model
 from sklearn.model_selection import train_test_split # Splits data into training and testing
 from sklearn.metrics import r2_score, mean_squared_error, mean_absolute_error # Evaluates the performance
+import joblib # Used to save and load the trained model
 
 # Load dataset into a pandas DataFrame
 # The Excel file needs to be in the same folder as this script
@@ -106,3 +103,5 @@ plt.xlabel("Actual SOH")
 plt.ylabel("Predicted SOH")
 plt.title("Linear Regression of Battery Pack SOH Prediction")
 plt.show()
+
+joblib.dump(model, 'model.pkl')   # Save an untrained model placeholder
