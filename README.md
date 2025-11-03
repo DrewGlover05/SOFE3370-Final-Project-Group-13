@@ -61,3 +61,4 @@ Manually entering values in the battery prediction tab - Only between 0.0 - 4.1 
 
 Developer's note *Important*: If you make any changes, you need to save and rerun the program from the terminal. Don't press the rerun button on the chatbot, the changes won't be applied.
 
+AIzaSyBzfFP1AzOb95GoZ8PfKyr6C3QvqZnSR5w
