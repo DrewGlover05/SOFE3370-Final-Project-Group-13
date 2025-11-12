@@ -78,7 +78,7 @@ print("Mean Squared Error:", round(mse, 6))
 print("Mean Absolute Error:", round(mae, 6), "\n")
 
 # Ask the user for a threshold
-threshold = float(input("Enter SOH threshold value: "))
+threshold = float(input("Enter SOH threshold value (ex. 0.6): "))
 # Use the trained model to predict SOH for the dataset
 df_sorted['Predicted_SOH'] = model.predict(X)
 # Create a new column to show if the battery passes the threshold
@@ -105,3 +105,4 @@ plt.title("Linear Regression of Battery Pack SOH Prediction")
 plt.show()
 
 joblib.dump(model, 'model.pkl')   # Save an untrained model placeholder
+
