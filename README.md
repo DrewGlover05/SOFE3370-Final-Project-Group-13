@@ -239,13 +239,13 @@ pip install --upgrade -r requirements.txt
 ## 📸 Screenshots
 
 ### SOH Prediction Interface
-![Add screenshot of Tab 1 showing gauge and prediction]
+<img width="1920" height="1020" alt="image" src="https://github.com/user-attachments/assets/0a0e2a19-fcac-45bf-a74d-0f93f2818f21" />
 
 ### Gemini Chatbot
-![Add screenshot of Tab 2 showing chat interface]
+<img width="1920" height="1020" alt="image" src="https://github.com/user-attachments/assets/a363db50-1564-474c-863b-147fbd58c284" />
 
 ### Performance Metrics
-![Add screenshot showing R², MSE, MAE display]
+<img width="1141" height="674" alt="image" src="https://github.com/user-attachments/assets/61c6cf60-f6be-4936-98ca-4b51c10ab298" />
 
 ---
 
