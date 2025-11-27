@@ -275,7 +275,5 @@ This project is developed for academic purposes as part of SOFE 3370 coursework.
 
 ---
 
-**For questions or support, contact: [your-email@ontariotechu.net]**
-
 *Last Updated: November 2025*
 
