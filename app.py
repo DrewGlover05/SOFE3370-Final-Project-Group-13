@@ -1,5 +1,5 @@
 # ====================================================
-#  app.py — Cleaned & Optimized Version (Full Features)
+#  app.py
 # ====================================================
 
 import streamlit as st
@@ -125,9 +125,7 @@ def summarize_dataframe(df, max_rows=5):
 # GEMINI MODEL UTILITIES
 # ---------------------------------------------
 def get_available_gemini_models(api_key):
-    """Return a list of available Gemini model IDs that support generateContent.
-    Falls back to empty list on any error. Strips the leading 'models/' prefix
-    for easier selection in the UI."""
+    """Return a list of available Gemini model IDs that support generateContent."""
     try:
         genai.configure(api_key=api_key)
         models = genai.list_models()
@@ -144,14 +142,14 @@ def get_available_gemini_models(api_key):
         return []
 
 
-# ---------------------------------------------
-# GEMINI CHATBOT — Dataset + SOH Aware
-# ---------------------------------------------
+# =============================================
+# GEMINI CHATBOT
+# =============================================
 def gemini_chat(user_prompt, api_key, model_name, soh_info, chat_history, df_uploaded):
     if not api_key:
         return "❌ Gemini API key is missing."
 
-    # --- Basic Intent Detection ---
+    # Intent Detection 
     prompt_lower = user_prompt.lower()
     wants_dataset = any([
         "data" in prompt_lower,
@@ -170,9 +168,7 @@ def gemini_chat(user_prompt, api_key, model_name, soh_info, chat_history, df_upl
         genai.configure(api_key=api_key)
         model = genai.GenerativeModel(model_name)
 
-        # -------------------------------
-        # ✅ Build context dynamically
-        # -------------------------------
+        #  Build dynamic content
         context = []
 
         # Only include SOH if prediction exists
@@ -183,18 +179,18 @@ def gemini_chat(user_prompt, api_key, model_name, soh_info, chat_history, df_upl
                 f"{soh_info['threshold']:.2f}."
             )
 
-        # ✅ Include dataset summary ONLY WHEN RELEVANT
+        # Include dataset summary ONLY WHEN RELEVANT
         if wants_dataset and df_uploaded is not None:
             context.append("Here is the dataset summary:\n" + summarize_dataframe(df_uploaded))
         elif wants_dataset and df_uploaded is None:
             context.append("⚠️ The user asked about the dataset, but no dataset is uploaded.")
 
-        # ✅ Add conversation history (shortened for clarity)
+        # Add conversation history (shortened for clarity)
         if chat_history:
             formatted_history = "\n".join([f"{r}: {m}" for r, m, _ in chat_history[-6:]])
             context.append("Recent conversation:\n" + formatted_history)
 
-        # ✅ Final user prompt
+        # Final user prompt
         context.append(f"User: {user_prompt}\nAssistant:")
 
         full_prompt = "\n\n".join(context)
@@ -217,9 +213,9 @@ def gemini_chat(user_prompt, api_key, model_name, soh_info, chat_history, df_upl
 
 
 
-# ---------------------------------------------
+# =============================================
 # SESSION STATE
-# ---------------------------------------------
+# =============================================
 for key in ["df_uploaded", "soh_info", "chat_history"]:
     if key not in st.session_state:
         st.session_state[key] = [] if key == "chat_history" else None
@@ -228,9 +224,9 @@ if "gemini_last_error" not in st.session_state:
     st.session_state["gemini_last_error"] = None
 
 
-# ---------------------------------------------
+# =============================================
 # SIDEBAR — MODEL LOADING
-# ---------------------------------------------
+# =============================================
 st.sidebar.header("Model Files")
 
 model_path = st.sidebar.text_input("Model (.pkl)", "model.pkl")
@@ -248,9 +244,9 @@ if st.sidebar.button("Load Model"):
         st.sidebar.error("❌ Failed to load model.")
 
 
-# ---------------------------------------------
+# =============================================
 # MAIN TABS
-# ---------------------------------------------
+# =============================================
 tab1, tab2, tab3 = st.tabs(["📊 SOH Prediction", "💬 Gemini Chatbot", "ℹ️ About"])
 
 
@@ -264,7 +260,9 @@ with tab1:
     manual_mode = st.checkbox("Enter values manually")
     threshold = st.slider("Healthy Threshold", 0.0, 1.0, DEFAULT_THRESHOLD, 0.01)
 
-    # --- Load dataset ---
+    # -----------------------------
+    # Load dataset 
+    # -----------------------------
     if uploaded:
         try:
             df = pd.read_csv(uploaded) if uploaded.name.endswith(".csv") else pd.read_excel(uploaded)
@@ -273,7 +271,9 @@ with tab1:
         except Exception as e:
             st.error(f"Error reading file: {e}")
 
-    # --- Manual input or row selection ---
+    # --------------------------------
+    # Manual input or row selection 
+    # --------------------------------
     input_vec = None
 
     if manual_mode:
@@ -291,7 +291,9 @@ with tab1:
         except Exception as e:
             st.error(f"Column error: {e}")
 
-    # --- Single Prediction ---
+    # --- -----------------
+    # Single Prediction 
+    # ---------------------
     if input_vec is not None and st.session_state.model:
         soh_pred = predict_pack_soh(
             st.session_state.model, input_vec, st.session_state.scaler
@@ -314,7 +316,9 @@ with tab1:
             st.error("⚠️ Battery has a PROBLEM")
 
 
-    # --- Evaluate entire dataset ---
+    # ----------------------------------
+    # Evaluate entire dataset 
+    # ----------------------------------
     if st.session_state.df_uploaded is not None:
         if st.checkbox("Evaluate entire dataset"):
             try:
@@ -329,6 +333,7 @@ with tab1:
 
                 st.write(st.session_state.df_uploaded.head())
 
+                # Check if actual SOH is availble, then compute metrics
                 if "Actual_SOH" in st.session_state.df_uploaded.columns:
                     y_true = st.session_state.df_uploaded["Actual_SOH"].astype(float)
                     metrics = evaluate_predictions(y_true, preds)
@@ -344,14 +349,16 @@ with tab1:
 
 
 # =====================================================
-# TAB 2 — Gemini Chatbot (Improved Chat UI)
+# TAB 2 — Gemini Chatbot
 # =====================================================
 with tab2:
     st.header("💬 Gemini Chatbot")
 
     gemini_api_key = st.text_input("Gemini API Key", type="password")
     
-    # Only show model selector after API key is entered
+    # -----------------------
+    # Model Selector
+    # -----------------------
     gemini_model = None
     if gemini_api_key:
         # Dynamic model retrieval: list models only after API key entered
@@ -364,25 +371,29 @@ with tab2:
 
     df_for_chat = st.session_state.df_uploaded
 
-    # --- Latest SOH Display ---
+    # -----------------------
+    # Latest SOH Display 
+    # -----------------------
     if st.session_state.soh_info:
         sohi = st.session_state.soh_info
         st.subheader("🔎 Latest Prediction")
         st.write(f"SOH: **{sohi['soh']:.3f}** — {sohi['status'].upper()}")
         plot_soh_gauge(sohi["soh"], sohi["threshold"])
 
-    # --- Clear Chat ---
+    # --------------------
+    # Clear Chat 
+    # --------------------
     if st.button("🧹 Clear Chat"):
         st.session_state.chat_history = []
         st.rerun()
 
-    # =====================================================
-    # ✅ NEW & IMPROVED CHAT BUBBLE SYSTEM
-    # =====================================================
+    # ------------------------------
+    #  Render Chat History
+    # ------------------------------
     for role, msg, ts in st.session_state.chat_history:
         is_user = (role == "User")
 
-        # Colors optimized for dark/light themes
+        # Colours optimized for dark/light themes
         bg_color = "#2F80ED" if is_user else "#333333"    # blue (user) / dark gray (bot)
         text_color = "white"
         align = "right" if is_user else "left"
@@ -421,9 +432,9 @@ with tab2:
                 unsafe_allow_html=True
             )
 
-    # =====================================================
-    # ✅ Chat Input (unchanged, but works with new UI)
-    # =====================================================
+    # --------------------------
+    # Chat Input
+    # --------------------------
     user_msg = st.chat_input("Ask Gemini something:")
 
     if user_msg:
